@@ -1,6 +1,6 @@
-var repoName = require('git-repo-name')
+const repoName = require('git-repo-name');
 
-class Repository {
+export class Repository {
     static instance = null
     
     constructor() {
@@ -14,5 +14,3 @@ class Repository {
         return this.instance
     }
 }
-
-module.exports(Repository)
