@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const {Repository} = require("../src/Repository");
+const Repository = require("../src/Repository");
 
 /* GET id. */
-router.get('/id', function(req, res) {
+router.get('/', function(req, res) {
   return res.json({
-    id : Repository.getInstance().id
+    id : Repository.getInstance().id,
   })
 });
 
