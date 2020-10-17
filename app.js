@@ -5,18 +5,20 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
-const idRouter= require('./routes/id');
+const idRouter = require('./routes/id');
+const billRoute = require('./routes/bill')
 
 const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/id', idRouter);
 app.use('/', indexRouter);
+app.use('/bill', billRoute)
 
 
 module.exports = app;
