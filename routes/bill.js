@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/', function(req, res, next) {
   try {
     let bill = new Bill(req.body)
-    res.send(res.json (bill.getTotalObject()))
+    res.send(res.json (bill.getBillTotal()))
   } catch (Error) {
     res.send(res.json({
       error : Error.message
