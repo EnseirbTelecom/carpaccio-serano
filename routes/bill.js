@@ -1,5 +1,5 @@
-const express = require('express');
 const Bill = require("../src/DataClasses/Bill");
+const express = require('express');
 const router = express.Router();
 
 /* GET bill page. */

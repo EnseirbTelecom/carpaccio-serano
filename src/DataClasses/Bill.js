@@ -12,7 +12,10 @@ class Bill {
         })
     }
 
-    getTotalObject() {
+    /**
+     * @return bill's total in JSON format
+     */
+    getBillTotal() {
         return {
             total: this.total
         }
