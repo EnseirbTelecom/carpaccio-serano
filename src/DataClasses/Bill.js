@@ -7,6 +7,7 @@ class Bill {
     }
 
     processTotal() {
+        this.total = 0
         this.prices.forEach((price, index) => {
             this.total += price * this.quantities[index]
         })
