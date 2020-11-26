@@ -16,11 +16,12 @@ class Bill {
             let pricesHaveNegativeValue = this.prices.some(v => v < 0);
             let quantitiesHaveNegativeValue = this.quantities.some(v => v < 0);
 
-            if (billHasDifferentArrayLengths === true || pricesHaveNegativeValue === true || quantitiesHaveNegativeValue === true) {
-                return false
-            } else {
-                return true
-            }
+            return billHasDifferentArrayLengths === true ||
+                pricesHaveNegativeValue === true ||
+                quantitiesHaveNegativeValue === true ?
+                false :
+                true
+
         }
     }
 
