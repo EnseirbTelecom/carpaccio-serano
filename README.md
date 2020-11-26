@@ -1,9 +1,9 @@
 carpaccio-serano
 
-## Team members :
+## Team members
 Esteban Estoc and Juliette Deguillaume
 
-## Installation : 
+## Installation
 
 `npm install`
 
@@ -11,3 +11,7 @@ Esteban Estoc and Juliette Deguillaume
 ## Start Server
 
 `npm start`
+
+## Launch tests
+
+`npm test`
