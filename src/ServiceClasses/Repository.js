@@ -3,11 +3,10 @@ const repoName = require('git-repo-name')
 class Repository {
   constructor () {
     this.id = repoName.sync()
-    this.instance = null
   }
 
   static getInstance () {
-    if (this.instance === null) {
+    if (this.instance === undefined) {
       this.instance = new Repository()
     }
     return this.instance
