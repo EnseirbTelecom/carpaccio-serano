@@ -1,21 +1,29 @@
 # carpaccio-serano
 
 ## Team members
+
 Esteban Estoc and Juliette Deguillaume
 
 ## Installation
 
-`npm install`
+```
+$ npm install
+```
 
 ## Start Server
 
-`npm start`
+```
+$ npm start
+```
 
 ## Launch tests
 
-`npm test`
+```
+$ npm test
+```
 
 ## Fix Linter Issues
 
-`npm standard-fix`
-
+```
+$ npm standard-fix
+```
