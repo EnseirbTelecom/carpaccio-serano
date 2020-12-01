@@ -29,6 +29,8 @@ jobs:
     - run: npm test
   
   release:
+    needs: test
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
       - name: Create GitHub release
