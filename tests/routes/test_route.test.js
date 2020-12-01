@@ -4,12 +4,10 @@ const app = require('../../app')
 const supertest = require('supertest')
 const request = supertest(app)
 
-it('Gets the id endpoint', async done => {
+it('Gets the test endpoint', async done => {
   // Sends GET Request to /test endpoint
-  const response = await request.get('/id')
+  const response = await request.get('/test')
   expect(response.status).toBe(200)
-  expect(response.body).toStrictEqual({
-    id: 'carpaccio-serano'
-  })
+  expect(response.body.message).toBe('pass!')
   done()
 })

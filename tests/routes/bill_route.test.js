@@ -1,7 +1,25 @@
 /* eslint-env jest */
 
-// const Bill = require('../../src/DataClasses/Bill.js')
+const app = require('../../app')
+const supertest = require('supertest')
+const request = supertest(app)
 
-test('Empty test.', () => {
-  expect(true).toBe(true)
+it('Gets the bill endpoint with { prices: [10, 20], quantities: [1, 2] }', async done => {
+  // Sends GET Request to /test endpoint
+  const response = await request
+    .post('/bill')
+    .send({ prices: [10, 20], quantities: [1, 2] })
+  expect(response.status).toBe(200)
+  expect(response.body).toStrictEqual({
+    total: 50
+  })
+  done()
+})
+
+it('Gets the bill endpoint with an error', async done => {
+  // Sends GET Request to /test endpoint
+  const response = await request.post('/bill').send({})
+  expect(response.status).toBe(400)
+  expect(response.body.error).toBe('error in request')
+  done()
 })
