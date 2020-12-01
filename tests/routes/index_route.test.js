@@ -1,5 +1,5 @@
 /* eslint-env jest */
 
 test('Empty test.', () => {
-    expect(true).toBe(true)
+  expect(true).toBe(true)
 })
