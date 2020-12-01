@@ -14,3 +14,8 @@ Esteban Estoc and Juliette Deguillaume
 ## Launch tests
 
 `npm test`
+
+## Fix Linter Issues
+
+`npm standard-fix`
+
