@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1606828492669" clover="3.2.0">
+  <project timestamp="1606828492669" name="All files">
+    <metrics statements="20" coveredstatements="20" conditionals="11" coveredconditionals="11" methods="7" coveredmethods="7" elements="38" coveredelements="38" complexity="0" loc="20" ncloc="20" packages="1" files="1" classes="1"/>
+    <file name="Bill.js" path="/Users/Esteban/Desktop/carpaccio-serano/src/DataClasses/Bill.js">
+      <metrics statements="20" coveredstatements="20" conditionals="11" coveredconditionals="11" methods="7" coveredmethods="7"/>
+      <line num="3" count="9" type="stmt"/>
+      <line num="4" count="9" type="stmt"/>
+      <line num="5" count="9" type="stmt"/>
+      <line num="6" count="9" type="stmt"/>
+      <line num="11" count="9" type="cond" truecount="2" falsecount="0"/>
+      <line num="13" count="9" type="cond" truecount="2" falsecount="0"/>
+      <line num="14" count="3" type="stmt"/>
+      <line num="17" count="6" type="stmt"/>
+      <line num="18" count="10" type="stmt"/>
+      <line num="19" count="10" type="stmt"/>
+      <line num="21" count="6" type="stmt"/>
+      <line num="30" count="9" type="cond" truecount="2" falsecount="0"/>
+      <line num="31" count="2" type="stmt"/>
+      <line num="32" count="2" type="stmt"/>
+      <line num="33" count="2" type="stmt"/>
+      <line num="36" count="7" type="stmt"/>
+      <line num="44" count="9" type="cond" truecount="2" falsecount="0"/>
+      <line num="45" count="7" type="stmt"/>
+      <line num="49" count="2" type="stmt"/>
+      <line num="55" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>
