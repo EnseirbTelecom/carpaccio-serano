@@ -42,9 +42,7 @@ class Bill {
    */
   getBillTotal () {
     if (this.total === -1) {
-      return {
-        error: 'error in request'
-      }
+      throw new Error('error in request')
     }
     return {
       total: this.total
