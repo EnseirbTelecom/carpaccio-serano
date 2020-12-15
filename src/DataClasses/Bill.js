@@ -36,7 +36,11 @@ class Bill {
       })
       // Apply Discount
       if (this.discount) {
-        this.total = Discount.getDiscount(this.total, this.discount)
+        try {
+          this.total = Discount.getDiscount(this.total, this.discount)
+        } catch (e) {
+          this.total = -1
+        }
       }
     } else {
       this.total = -1
