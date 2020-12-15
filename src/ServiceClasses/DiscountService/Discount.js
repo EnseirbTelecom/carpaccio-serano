@@ -1,4 +1,4 @@
-import * as DiscountLib from './DiscountLib'
+const DiscountLib = require('./DiscountLib')
 
 class Discount {
   static getDiscount (total, discountType) {
