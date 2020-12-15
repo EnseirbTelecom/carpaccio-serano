@@ -1,7 +1,9 @@
+const Discount = require('../ServiceClasses/DiscountService/Discount')
 class Bill {
   constructor (bill) {
     this.prices = bill.prices
     this.quantities = bill.quantities
+    this.discount = bill.discount ? bill.discount : false
     this.total = 0
     this.processTotal()
   }
@@ -32,6 +34,10 @@ class Bill {
       this.prices.forEach((price, index) => {
         this.total += price * this.quantities[index]
       })
+      // Apply Discount
+      if (this.discount) {
+        this.total = Discount.getDiscount(this.total, this.discount)
+      }
     } else {
       this.total = -1
     }
