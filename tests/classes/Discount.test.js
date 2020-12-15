@@ -21,4 +21,10 @@ describe('Discount class', () => {
     const tag = 'FIXED_DISCOUNT'
     expect(Discount.getDiscount(totalPrice, tag)).toBe(5054.54)
   })
+  test('should have a static method getDicount that throw an error if the discount type is not correct', () => {
+    const tag = 'dummy_test'
+    expect(() => Discount.getDiscount(totalPrice, tag)).toThrowError(
+      new Error('No valid discount type profided')
+    )
+  })
 })
