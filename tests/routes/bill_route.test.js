@@ -4,14 +4,14 @@ const app = require('../../app')
 const supertest = require('supertest')
 const request = supertest(app)
 
-it('Gets the bill endpoint with { prices: [10, 20], quantities: [1, 2] }', async done => {
+it('Gets the bill endpoint with { prices: [10, 20], quantities: [1, 2], country: "FR" }', async done => {
   // Sends GET Request to /test endpoint
   const response = await request
     .post('/bill')
-    .send({ prices: [10, 20], quantities: [1, 2] })
+    .send({ prices: [10, 20], quantities: [1, 2], country: 'FR' })
   expect(response.status).toBe(200)
   expect(response.body).toStrictEqual({
-    total: 50
+    total: 60
   })
   done()
 })
