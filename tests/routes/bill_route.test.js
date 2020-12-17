@@ -18,12 +18,15 @@ it('Gets the bill endpoint with { prices: [10, 20], quantities: [1, 2], country:
 
 it('Gets the bill endpoint with { prices: [10, 20], quantities: [1, 2], discount: NO_DISCOUNT }', async done => {
   // Sends GET Request to /test endpoint
-  const response = await request
-    .post('/bill')
-    .send({ prices: [10, 20], quantities: [1, 2], discount: 'NO_DISCOUNT' })
+  const response = await request.post('/bill').send({
+    prices: [10, 20],
+    quantities: [1, 2],
+    discount: 'NO_DISCOUNT',
+    country: 'FR'
+  })
   expect(response.status).toBe(200)
   expect(response.body).toStrictEqual({
-    total: 50
+    total: 60
   })
   done()
 })
@@ -33,11 +36,12 @@ it('Gets the bill endpoint with { prices: [500, 300], quantities: [1, 2], discou
   const response = await request.post('/bill').send({
     prices: [500, 300],
     quantities: [1, 2],
-    discount: 'PROGRESSIVE_DISCOUNT'
+    discount: 'PROGRESSIVE_DISCOUNT',
+    country: 'FR'
   })
   expect(response.status).toBe(200)
   expect(response.body).toStrictEqual({
-    total: 1067
+    total: 1280.4
   })
   done()
 })
@@ -47,11 +51,12 @@ it('Gets the bill endpoint with { prices: [500, 300], quantities: [1, 2], discou
   const response = await request.post('/bill').send({
     prices: [500, 300],
     quantities: [1, 2],
-    discount: 'FLAT_DISCOUNT'
+    discount: 'FLAT_DISCOUNT',
+    country: 'FR'
   })
   expect(response.status).toBe(200)
   expect(response.body).toStrictEqual({
-    total: 770
+    total: 924
   })
   done()
 })
@@ -61,11 +66,12 @@ it('Gets the bill endpoint with { prices: [500, 300], quantities: [1, 2], discou
   const response = await request.post('/bill').send({
     prices: [500, 300],
     quantities: [1, 2],
-    discount: 'FIXED_DISCOUNT'
+    discount: 'FIXED_DISCOUNT',
+    country: 'FR'
   })
   expect(response.status).toBe(200)
   expect(response.body).toStrictEqual({
-    total: 900
+    total: 1120
   })
   done()
 })
@@ -75,7 +81,8 @@ it('Gets the bill endpoint with an error on the discount type', async done => {
   const response = await request.post('/bill').send({
     prices: [500, 300],
     quantities: [1, 2],
-    discount: 'dummy_one'
+    discount: 'dummy_one',
+    country: 'FR'
   })
   expect(response.status).toBe(400)
   expect(response.body.error).toBe('error in request')
@@ -86,7 +93,8 @@ it('Gets the bill endpoint with an error on the price (negative)', async done =>
   // Sends GET Request to /test endpoint
   const response = await request.post('/bill').send({
     prices: [-100, 300],
-    quantities: [1, 2]
+    quantities: [1, 2],
+    country: 'FR'
   })
   expect(response.status).toBe(400)
   expect(response.body.error).toBe('error in request')
@@ -97,7 +105,8 @@ it('Gets the bill endpoint with an error on the price (no price)', async done =>
   // Sends GET Request to /test endpoint
   const response = await request.post('/bill').send({
     prices: [],
-    quantities: [1, 2]
+    quantities: [1, 2],
+    country: 'FR'
   })
   expect(response.status).toBe(400)
   expect(response.body.error).toBe('error in request')
@@ -108,7 +117,8 @@ it('Gets the bill endpoint with an error on the quantities (no quantities)', asy
   // Sends GET Request to /test endpoint
   const response = await request.post('/bill').send({
     prices: [100, 300],
-    quantities: []
+    quantities: [],
+    country: 'FR'
   })
   expect(response.status).toBe(400)
   expect(response.body.error).toBe('error in request')
@@ -119,7 +129,8 @@ it('Gets the bill endpoint with an error on the quantities (negative)', async do
   // Sends GET Request to /test endpoint
   const response = await request.post('/bill').send({
     prices: [100, 300],
-    quantities: [-1, 2]
+    quantities: [-1, 2],
+    country: 'FR'
   })
   expect(response.status).toBe(400)
   expect(response.body.error).toBe('error in request')
@@ -130,7 +141,8 @@ it('Gets the bill endpoint with an error (not enough prices)', async done => {
   // Sends GET Request to /test endpoint
   const response = await request.post('/bill').send({
     prices: [100],
-    quantities: [1, 2]
+    quantities: [1, 2],
+    country: 'FR'
   })
   expect(response.status).toBe(400)
   expect(response.body.error).toBe('error in request')
@@ -141,7 +153,8 @@ it('Gets the bill endpoint with an error (not enough quantities)', async done =>
   // Sends GET Request to /test endpoint
   const response = await request.post('/bill').send({
     prices: [100, 200],
-    quantities: [1]
+    quantities: [1],
+    country: 'FR'
   })
   expect(response.status).toBe(400)
   expect(response.body.error).toBe('error in request')

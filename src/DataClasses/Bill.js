@@ -1,4 +1,3 @@
-
 const Discount = require('../ServiceClasses/DiscountService/Discount')
 const TVA = require('../ServiceClasses/TVAService/TVA')
 
@@ -14,7 +13,9 @@ class Bill {
 
   isBillCorrect () {
     const billIsUndefined =
-      this.prices === undefined || this.quantities === undefined || this.country === undefined
+      this.prices === undefined ||
+      this.quantities === undefined ||
+      this.country === undefined
 
     if (billIsUndefined === true) {
       return false
@@ -40,6 +41,8 @@ class Bill {
       this.prices.forEach((price, index) => {
         this.total += price * this.quantities[index]
       })
+      // Adding TVA to the total
+      this.total += TVA.getTVA(this.total, this.country)
       // Apply Discount
       if (this.discount) {
         try {
@@ -48,8 +51,6 @@ class Bill {
           this.total = -1
         }
       }
-      // Adding TVA to the total
-      this.total += TVA.getTVA(this.total, this.country)
     } else {
       this.total = -1
     }
