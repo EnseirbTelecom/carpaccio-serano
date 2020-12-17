@@ -1,9 +1,11 @@
+const Discount = require('../ServiceClasses/DiscountService/Discount')
 const TVA = require('../ServiceClasses/TVAService/TVA')
 
 class Bill {
   constructor (bill) {
     this.prices = bill.prices
     this.quantities = bill.quantities
+    this.discount = bill.discount ? bill.discount : false
     this.country = bill.country
     this.total = 0
     this.processTotal()
@@ -11,7 +13,9 @@ class Bill {
 
   isBillCorrect () {
     const billIsUndefined =
-      this.prices === undefined || this.quantities === undefined || this.country === undefined
+      this.prices === undefined ||
+      this.quantities === undefined ||
+      this.country === undefined
 
     if (billIsUndefined === true) {
       return false
@@ -39,6 +43,14 @@ class Bill {
       })
       // Adding TVA to the total
       this.total += TVA.getTVA(this.total, this.country)
+      // Apply Discount
+      if (this.discount) {
+        try {
+          this.total = Discount.getDiscount(this.total, this.discount)
+        } catch (e) {
+          this.total = -1
+        }
+      }
     } else {
       this.total = -1
     }
