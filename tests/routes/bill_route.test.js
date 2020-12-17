@@ -9,10 +9,8 @@ it('Gets the bill endpoint with { prices: [10, 20], quantities: [1, 2] }', async
   const response = await request
     .post('/bill')
     .send({ prices: [10, 20], quantities: [1, 2] })
-  expect(response.status).toBe(200)
-  expect(response.body).toStrictEqual({
-    total: 50
-  })
+  expect(response.status).toBe(400)
+  expect(response.body.error).toBe('error in request')
   done()
 })
 
