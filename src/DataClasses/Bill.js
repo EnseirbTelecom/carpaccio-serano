@@ -6,6 +6,7 @@ class Bill {
     this.prices = bill.prices
     this.quantities = bill.quantities
     this.discount = bill.discount ? bill.discount : false
+    this.currency = bill.currency ? bill.currency : false
     this.country = bill.country
     this.total = 0
     this.processTotal()
@@ -51,6 +52,14 @@ class Bill {
           this.total = -1
         }
       }
+      // Apply exchange rate
+      /* if (this.currency) {
+        try {
+          this.total = Currency.getPriceInCurrency(this.total, this.currency)
+        } catch (e) {
+          this.total = -1
+        }
+      } */
     } else {
       this.total = -1
     }
