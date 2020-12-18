@@ -1,14 +1,16 @@
 const Discount = require('../ServiceClasses/DiscountService/Discount')
 const TVA = require('../ServiceClasses/TVAService/TVA')
+const Currency = require('../ServiceClasses/CurrencyService/CurrencyAPI')
 
 class Bill {
   constructor (bill) {
     this.prices = bill.prices
     this.quantities = bill.quantities
+    this.country = bill.country
     this.discount = bill.discount ? bill.discount : false
     this.currency = bill.currency ? bill.currency : false
-    this.country = bill.country
     this.total = 0
+    this.isLoading = false
     this.processTotal()
   }
 
@@ -36,14 +38,20 @@ class Bill {
     }
   }
 
-  processTotal () {
+  async processTotal () {
     if (this.isBillCorrect() === true) {
       this.total = 0
       this.prices.forEach((price, index) => {
         this.total += price * this.quantities[index]
       })
+
       // Adding TVA to the total
-      this.total += TVA.getTVA(this.total, this.country)
+      try {
+        this.total += TVA.getTVA(this.total, this.country)
+      } catch (e) {
+        this.total = -1
+      }
+
       // Apply Discount
       if (this.discount) {
         try {
@@ -52,14 +60,22 @@ class Bill {
           this.total = -1
         }
       }
+
       // Apply exchange rate
-      /* if (this.currency) {
+      if (this.currency) {
         try {
-          this.total = Currency.getPriceInCurrency(this.total, this.currency)
+          console.log('Total before exchange rate is : ' + this.total)
+          this.isLoading = true
+          Currency.getPriceInCurrency(this.total, this.currency)
+            .then((price) => {
+              this.total = price
+              this.isLoading = false
+              console.log('Total after exchange rate is : ' + this.total)
+            })
         } catch (e) {
           this.total = -1
         }
-      } */
+      }
     } else {
       this.total = -1
     }
@@ -69,6 +85,8 @@ class Bill {
    * @return bill's total in JSON format
    */
   getBillTotal () {
+    // TODO : Don't return anything while isLoading is still true
+    // Because now it returns the total before receiving the total in correct currency
     if (this.total === -1) {
       throw new Error('error in request')
     }
