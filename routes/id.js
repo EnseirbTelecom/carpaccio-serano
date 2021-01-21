@@ -4,11 +4,9 @@ const router = express.Router()
 
 /* GET id. */
 router.get('/', function (req, res) {
-  res.send(
-    res.json({
-      id: Repository.getInstance().id
-    })
-  )
+  res.send({
+    id: Repository.getInstance().id
+  })
 })
 
 module.exports = router

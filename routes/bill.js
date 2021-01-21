@@ -4,23 +4,18 @@ const router = express.Router()
 
 /* GET bill page. */
 router.post('/', function (req, res, next) {
-  try {
-    const bill = new Bill(req.body)
-    bill.processTotal()
+  const bill = new Bill(req.body)
+  bill
+    .processTotal()
     .then(() => {
-      const billTotal = bill.getBillTotal()
-      res.send(res.json(billTotal))
+      const totalBill = bill.getBillTotal()
+      res.send(totalBill)
     })
-    .catch((error) => {
-      console.error(error)
-    })
-  } catch (Error) {
-    res.status(400).send(
-      res.json({
-        error: Error.message
+    .catch(error => {
+      res.status(400).send({
+        error: error.message
       })
-    )
-  }
+    })
 })
 
 module.exports = router

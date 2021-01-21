@@ -1,6 +1,6 @@
 const Discount = require('../ServiceClasses/DiscountService/Discount')
 const TVA = require('../ServiceClasses/TVAService/TVA')
-const Currency = require('../ServiceClasses/CurrencyService/CurrencyAPI')
+const Currency = require('../ServiceClasses/CurrencyService/Currency')
 
 class Bill {
   constructor (bill) {
@@ -62,9 +62,11 @@ class Bill {
       // Apply exchange rate
       if (this.currency) {
         try {
-          console.log('Total before exchange rate is : ' + this.total)
-          this.total = await Currency.getPriceInCurrency(this.total, this.currency)
-          console.log('Total after exchange rate is : ' + this.total)
+          const price = await Currency.getPriceInCurrency(
+            this.total,
+            this.currency
+          )
+          this.total = price
         } catch (e) {
           this.total = -1
         }
