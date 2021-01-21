@@ -1,14 +1,15 @@
 const Discount = require('../ServiceClasses/DiscountService/Discount')
 const TVA = require('../ServiceClasses/TVAService/TVA')
+const Currency = require('../ServiceClasses/CurrencyService/Currency')
 
 class Bill {
   constructor (bill) {
     this.prices = bill.prices
     this.quantities = bill.quantities
-    this.discount = bill.discount ? bill.discount : false
     this.country = bill.country
+    this.discount = bill.discount ? bill.discount : false
+    this.currency = bill.currency ? bill.currency : false
     this.total = 0
-    this.processTotal()
   }
 
   isBillCorrect () {
@@ -35,18 +36,37 @@ class Bill {
     }
   }
 
-  processTotal () {
+  async processTotal () {
     if (this.isBillCorrect() === true) {
       this.total = 0
       this.prices.forEach((price, index) => {
         this.total += price * this.quantities[index]
       })
+
       // Adding TVA to the total
-      this.total += TVA.getTVA(this.total, this.country)
+      try {
+        this.total += TVA.getTVA(this.total, this.country)
+      } catch (e) {
+        this.total = -1
+      }
+
       // Apply Discount
       if (this.discount) {
         try {
           this.total = Discount.getDiscount(this.total, this.discount)
+        } catch (e) {
+          this.total = -1
+        }
+      }
+
+      // Apply exchange rate
+      if (this.currency) {
+        try {
+          const price = await Currency.getPriceInCurrency(
+            this.total,
+            this.currency
+          )
+          this.total = price
         } catch (e) {
           this.total = -1
         }
@@ -60,6 +80,8 @@ class Bill {
    * @return bill's total in JSON format
    */
   getBillTotal () {
+    // TODO : Don't return anything while isLoading is still true
+    // Because now it returns the total before receiving the total in correct currency
     if (this.total === -1) {
       throw new Error('error in request')
     }
