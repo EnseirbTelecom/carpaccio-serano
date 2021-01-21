@@ -1,6 +1,6 @@
 const Discount = require('../ServiceClasses/DiscountService/Discount')
 const TVA = require('../ServiceClasses/TVAService/TVA')
-const Currency = require('../ServiceClasses/CurrencyService/CurrencyAPI')
+const Currency = require('../ServiceClasses/CurrencyService/Currency')
 
 class Bill {
   constructor (bill) {
@@ -10,8 +10,6 @@ class Bill {
     this.discount = bill.discount ? bill.discount : false
     this.currency = bill.currency ? bill.currency : false
     this.total = 0
-    this.isLoading = false
-    this.processTotal()
   }
 
   isBillCorrect () {
@@ -64,14 +62,11 @@ class Bill {
       // Apply exchange rate
       if (this.currency) {
         try {
-          console.log('Total before exchange rate is : ' + this.total)
-          this.isLoading = true
-          Currency.getPriceInCurrency(this.total, this.currency)
-            .then((price) => {
-              this.total = price
-              this.isLoading = false
-              console.log('Total after exchange rate is : ' + this.total)
-            })
+          const price = await Currency.getPriceInCurrency(
+            this.total,
+            this.currency
+          )
+          this.total = price
         } catch (e) {
           this.total = -1
         }
