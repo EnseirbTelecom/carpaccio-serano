@@ -5,7 +5,7 @@ const getLatestExchangeRate = async () => {
 }
 
 class Currency {
-  static getPriceInCurrency (total, currency) {
+  static async getPriceInCurrency(total, currency) {
     return getLatestExchangeRate()
       .then((resp) => resp.json())
       .then((data) => {

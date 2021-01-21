@@ -6,8 +6,14 @@ const router = express.Router()
 router.post('/', function (req, res, next) {
   try {
     const bill = new Bill(req.body)
-    const billTotal = bill.getBillTotal()
-    res.send(res.json(billTotal))
+    bill.processTotal()
+    .then(() => {
+      const billTotal = bill.getBillTotal()
+      res.send(res.json(billTotal))
+    })
+    .catch((error) => {
+      console.error(error)
+    })
   } catch (Error) {
     res.status(400).send(
       res.json({

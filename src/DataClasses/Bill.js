@@ -10,8 +10,6 @@ class Bill {
     this.discount = bill.discount ? bill.discount : false
     this.currency = bill.currency ? bill.currency : false
     this.total = 0
-    this.isLoading = false
-    this.processTotal()
   }
 
   isBillCorrect () {
@@ -65,13 +63,8 @@ class Bill {
       if (this.currency) {
         try {
           console.log('Total before exchange rate is : ' + this.total)
-          this.isLoading = true
-          Currency.getPriceInCurrency(this.total, this.currency)
-            .then((price) => {
-              this.total = price
-              this.isLoading = false
-              console.log('Total after exchange rate is : ' + this.total)
-            })
+          this.total = await Currency.getPriceInCurrency(this.total, this.currency)
+          console.log('Total after exchange rate is : ' + this.total)
         } catch (e) {
           this.total = -1
         }
