@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "standard && jest --coverage",
+    "test": "standard && jest --coverage -u",
     "standard-fix": "npx standard --fix"
   },
   "dependencies": {
@@ -18,8 +18,15 @@
     "pug": "^3.0.0"
   },
   "devDependencies": {
+    "@types/fetch-mock": "^7.3.3",
+    "fetch-mock": "^9.11.0",
     "jest": "^26.6.3",
+    "jest-fetch-mock": "^3.0.3",
     "standard": "^16.0.3",
     "supertest": "^6.1.1"
+  },
+  "jest": {
+    "automock": false,
+    "setupFiles": ["./setupJest.js"]
   }
 }
