@@ -25,13 +25,11 @@ class Bill {
         this.prices.length !== this.quantities.length
       const pricesHaveNegativeValue = this.prices.some(v => v < 0)
       const quantitiesHaveNegativeValue = this.quantities.some(v => v < 0)
-      const countryIsNotCorrect = !TVA.isCountryCorrect(this.country)
 
       return !(
         billHasDifferentArrayLengths === true ||
         pricesHaveNegativeValue === true ||
-        quantitiesHaveNegativeValue === true ||
-        countryIsNotCorrect === true
+        quantitiesHaveNegativeValue === true
       )
     }
   }
@@ -47,7 +45,7 @@ class Bill {
       try {
         this.total += TVA.getTVA(this.total, this.country)
       } catch (e) {
-        this.total = -1
+        throw new Error(e.message)
       }
 
       // Apply Discount
@@ -55,7 +53,7 @@ class Bill {
         try {
           this.total = Discount.getDiscount(this.total, this.discount)
         } catch (e) {
-          this.total = -1
+          throw new Error(e.message)
         }
       }
 
@@ -68,11 +66,11 @@ class Bill {
           )
           this.total = price
         } catch (e) {
-          this.total = -1
+          throw new Error(e.message)
         }
       }
     } else {
-      this.total = -1
+      throw new Error('Bad request')
     }
   }
 
@@ -82,9 +80,6 @@ class Bill {
   getBillTotal () {
     // TODO : Don't return anything while isLoading is still true
     // Because now it returns the total before receiving the total in correct currency
-    if (this.total === -1) {
-      throw new Error('error in request')
-    }
     return {
       total: this.total
     }

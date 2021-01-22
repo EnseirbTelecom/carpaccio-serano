@@ -14,7 +14,7 @@ class Currency {
         throw new Error('No valid currency provided')
       }
     } catch (error) {
-      console.error(error)
+      throw new Error(error.message)
     }
   }
 }
