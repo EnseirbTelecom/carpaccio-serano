@@ -131,7 +131,7 @@ test('{"prices" : [15.99, 11.99], "quantities" : [1, 2], "country" : "ES"} total
   expect(tmpBill.getBillTotal()).toStrictEqual({ total: 47.56 })
 })
 
-test('{"prices" : [15.99, 11.99], "quantities" : [1, 2], "country" : "ZZ"} total throws "Bad request".', async () => {
+test('{"prices" : [15.99, 11.99], "quantities" : [1, 2], "country" : "ZZ"} total throws "No valid country provided for TVA".', async () => {
   const bill = { prices: [15.99, 11.99], quantities: [1, 2], country: 'ZZ' }
   const tmpBill = new Bill(bill)
   await expect(tmpBill.processTotal()).rejects.toThrowError(
@@ -139,7 +139,7 @@ test('{"prices" : [15.99, 11.99], "quantities" : [1, 2], "country" : "ZZ"} total
   )
 })
 
-test('{"prices" : [15.99, 11.99], "quantities" : [1, 2], currency: "TOTO"} total throws "Bad request".', async () => {
+test('{"prices" : [15.99, 11.99], "quantities" : [1, 2], currency: "TOTO"} total throws "No valid currency provided".', async () => {
   fetch.mockResponse(JSON.stringify(currencies))
   const bill = {
     prices: [15.99, 11.99],
